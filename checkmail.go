@@ -28,7 +28,7 @@ func NewSmtpError(err error) SmtpError {
 	}
 }
 
-const forceDisconnectAfter = time.Second * 10
+const forceDisconnectAfter = time.Second * 5
 
 var (
 	ErrBadFormat        = errors.New("invalid format")
@@ -59,7 +59,7 @@ func ValidateHost(email string) error {
 
 	t := time.AfterFunc(forceDisconnectAfter, func() { client.Close() })
 	defer t.Stop()
-  
+
 	err = client.Hello("checkmail.me")
 	if err != nil {
 		return NewSmtpError(err)
